@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router";
-
+import goToSignUp from "../Router/Coodinator"
 
 export default function Signup() {
   const history = useHistory();
@@ -40,7 +40,7 @@ export default function Signup() {
       console.error(error);
     }
   };
-  
+
   const goToLogin = () => {
     history.push("/login");
   };
