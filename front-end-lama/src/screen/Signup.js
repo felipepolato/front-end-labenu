@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router";
-import goToSignUp from "../Router/Coodinator"
+import { useHistory } from "react-router-dom";
+import goToSignUp from "../Router/Coodinator";
+import axios from "axios";
+import useForm from "../hoock/useForm";
+import Login from "./Login";
 
 export default function Signup() {
   const history = useHistory();
   const [form, onChange] = useForm({
     name: "",
+    nickname: "",
     email: "",
-    cpf: "",
     password: "",
   });
 
@@ -20,33 +23,37 @@ export default function Signup() {
 
   const handleSignup = async (event) => {
     event.preventDefault();
-
+  };
+  const signup = () => {
     const body = {
       name: form.nome,
       email: form.email,
-      cpf: form.cpf,
+      nickname: form.nickname,
       password: form.senha,
     };
 
-    try {
-      const response = await axios.post(``, body);
-
-      console.log("RESPONSE", response);
-      localStorage.setItem("token", response.data.token);
-      history.push("/signup/address");
-
-    } catch (error) {
-      alert("Cadastro falhou, tente novamente.");
-      console.error(error);
-    }
+    axios
+      .post("https://localhost3003/user/signup", body)
+      .then((res) => {
+        console.log("RESPONSE", res);
+        localStorage.setItem("token", res.data.token);
+        //   history.push("/signup/address");
+      })
+      .catch((error) => {
+        alert("Cadastro falhou, tente novamente.");
+        console.error(error);
+      });
   };
-
-  const goToLogin = () => {
-    history.push("/login");
-  };
+  //  
 
   return (
     <div>
-      </div>
+      <p>Signup</p>
+      <input placeholder="Nome" type="text" />
+      <input placeholder="Nickname" type="text" />
+      <input placeholder="E-mail" type="text" />
+      <input placeholder="Senha" type="password" />
+      <button  onChange={onChange} onClick={Login}> Cadastrar</button>
+    </div>
   );
 }
