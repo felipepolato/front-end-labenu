@@ -1,54 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import {goToHome} from "../Router/Coodinator";
+import { goToHome, goToSignUp } from "../Router/Coodinator";
 
 export default function Login() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-// };
-const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-// useEffect(() => {
-//   const token = localStorage.getItem("token");
+  const history = useHistory();
 
-//   if (token) {
-//     // history.push("/feedPage");
-//   }
-// }, [history]);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-// const handleEmail = (e) => {
-//   setEmail(e.target.value);
-// };
+    if (token) {
+      // history.push("/feedPage");
+    }
+  }, [history]);
 
-// const handlePassword = (e) => {
-//   setPassword(e.target.value);
-// };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
 
-// const login = () => {
-//   const body = {
-//     email,
-//     password,
-//   };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
-//   axios
-//     .post("", body)
-//     .then((res) => {
-//       localStorage.setItem("token", res.data.token);
-//       // history.push("/feedPage");
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
+  const login = () => {
+    const body = {
+      email,
+      password,
+    };
+
+    axios
+      .post("https://localhost3003/user/login", body)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        // history.push("/feedPage");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
       <p>Login</p>
-      {/* <input value={email} onChange={handleEmail} />
-      <input value={password} onChange={handlePassword} />
-      <button onClick={login}>Fazer login</button> */}
-
-      <button onClick={()=>goToHome(history)}> Home</button>
+      <input placeholder="E-mail" value={email} onChange={handleEmail} />
+      <input placeholder="Senha" value={password} onChange={handlePassword} />
+      <button onClick={login}>Fazer login</button>
+      <button onClick={() => goToHome(history)}> Home</button>
+      <button onClick={() => goToSignUp(history)}> Signup</button>
     </div>
   );
-};
+}
