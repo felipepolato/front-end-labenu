@@ -1,41 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { goToHome, goToSignUp } from "../Router/Coodinator";
+import { goToHome } from "../Router/Coodinator";
+import useForm from "../hoock/useForm";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { form, onChange } = useForm({
+    email: "",
+    password: "",
+  });
 
   const history = useHistory();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  const logging = (event) => {
 
-    if (token) {
-      // history.push("/feedPage");
-    }
-  }, [history]);
+    event.preventDefault();
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const login = () => {
     const body = {
-      email,
-      password,
+      email: form.email,
+      password: form.password,
     };
 
     axios
-      .post("https://localhost3003/user/login", body)
+      .post("https://backend-fullstack-labenu.herokuapp.com/user/login", body)
       .then((res) => {
+        goToHome(history);
         localStorage.setItem("token", res.data.token);
-        // history.push("/feedPage");
       })
       .catch((err) => {
         console.log(err);
@@ -43,13 +33,23 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <form onSubmit={logging}>
       <p>Login</p>
-      <input placeholder="E-mail" value={email} onChange={handleEmail} />
-      <input placeholder="Senha" value={password} onChange={handlePassword} />
-      <button onClick={login}>Fazer login</button>
-      <button onClick={() => goToHome(history)}> Home</button>
-      <button onClick={() => goToSignUp(history)}> Signup</button>
-    </div>
+      <input
+        placeholder="E-mail"
+        name="email"
+        type="text"
+        value={form.email}
+        onChange={onChange}
+      />
+      <input
+        placeholder="Senha"
+        name="password"
+        type="password"
+        value={form.password}
+        onChange={onChange}
+      />
+      <button>Fazer login</button>
+    </form>
   );
 }
