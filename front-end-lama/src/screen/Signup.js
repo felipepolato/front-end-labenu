@@ -31,7 +31,7 @@ export default function Signup() {
       })
       .catch((error) => {
         alert("Cadastro falhou, tente novamente.");
-        console.error(error);
+        console.error(error.response.data);
       });
   };
 

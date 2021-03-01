@@ -17,6 +17,9 @@ export default function Routers() {
         <Route exact path={"/signup"}>
           <Signup />
         </Route>
+        <Route exact path={"/musics"}>
+          <Signup />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
