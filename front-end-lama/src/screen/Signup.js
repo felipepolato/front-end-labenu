@@ -9,8 +9,8 @@ export default function Signup() {
   const { form, onChange } = useForm({
     name: "",
     email: "",
-    nickname: "",
     password: "",
+    nickname: "",
   });
 
   const conection = (event) => {
@@ -19,39 +19,29 @@ export default function Signup() {
     const body = {
       name: form.name,
       email: form.email,
-      nickname: form.nickname,
       password: form.password,
+      nickname: form.nickname,
     };
 
     axios
       .post("https://backend-fullstack-labenu.herokuapp.com/user/signup", body)
       .then((res) => {
-        goToHome(history);
         localStorage.setItem("token", res.data.token);
+        goToHome(history);
       })
       .catch((error) => {
         alert("Cadastro falhou, tente novamente.");
         console.error(error);
       });
   };
-  //
 
   return (
     <form onSubmit={conection}>
-      
       <input
         onChange={onChange}
         value={form.name}
         name="name"
         placeholder="Nome"
-        type="text"
-      />
-
-      <input
-        onChange={onChange}
-        value={form.nickname}
-        name="nickname"
-        placeholder="Nickname"
         type="text"
       />
 
@@ -70,7 +60,16 @@ export default function Signup() {
         placeholder="Senha"
         type="password"
       />
-      <button onChange={onChange}> Cadastrar</button>
+
+      <input
+        onChange={onChange}
+        value={form.nickname}
+        name="nickname"
+        placeholder="Nickname"
+        type="text"
+      />
+
+      <button > Cadastrar</button>
     </form>
   );
 }
