@@ -1,59 +1,75 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import goToSignUp from "../Router/Coodinator";
+import { goToHome } from "../Router/Coodinator";
 import axios from "axios";
 import useForm from "../hoock/useForm";
-import Login from "./Login";
 
 export default function Signup() {
   const history = useHistory();
-  const [form, onChange] = useForm({
+  const { form, onChange } = useForm({
     name: "",
-    nickname: "",
     email: "",
     password: "",
+    nickname: "",
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      history.push("/");
-    }
-  }, [history]);
-
-  const handleSignup = async (event) => {
+  const conection = (event) => {
     event.preventDefault();
-  };
-  const signup = () => {
+
     const body = {
-      name: form.nome,
+      name: form.name,
       email: form.email,
+      password: form.password,
       nickname: form.nickname,
-      password: form.senha,
     };
 
     axios
-      .post("https://localhost3003/user/signup", body)
+      .post("https://backend-fullstack-labenu.herokuapp.com/user/signup", body)
       .then((res) => {
-        console.log("RESPONSE", res);
         localStorage.setItem("token", res.data.token);
-        //   history.push("/signup/address");
+        goToHome(history);
       })
       .catch((error) => {
         alert("Cadastro falhou, tente novamente.");
         console.error(error);
       });
   };
-  //  
 
   return (
-    <div>
-      <p>Signup</p>
-      <input placeholder="Nome" type="text" />
-      <input placeholder="Nickname" type="text" />
-      <input placeholder="E-mail" type="text" />
-      <input placeholder="Senha" type="password" />
-      <button  onChange={onChange} onClick={Login}> Cadastrar</button>
-    </div>
+    <form onSubmit={conection}>
+      <input
+        onChange={onChange}
+        value={form.name}
+        name="name"
+        placeholder="Nome"
+        type="text"
+      />
+
+      <input
+        onChange={onChange}
+        value={form.email}
+        name="email"
+        placeholder="E-mail"
+        type="text"
+      />
+
+      <input
+        onChange={onChange}
+        value={form.password}
+        name="password"
+        placeholder="Senha"
+        type="password"
+      />
+
+      <input
+        onChange={onChange}
+        value={form.nickname}
+        name="nickname"
+        placeholder="Nickname"
+        type="text"
+      />
+
+      <button > Cadastrar</button>
+    </form>
   );
 }
