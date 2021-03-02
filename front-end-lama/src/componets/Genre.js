@@ -43,7 +43,7 @@ export default function CreateGenre() {
         name={"name"}
         type={"text"}
       />
-      <button>Enviar</button>
+      {/* <button>Enviar</button> */}
     </form>
   );
 }

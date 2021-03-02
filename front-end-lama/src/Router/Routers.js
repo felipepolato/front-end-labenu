@@ -22,7 +22,7 @@ export default function Routers() {
         <Route exact path={"/musics"}>
           <CreateMusic />
         </Route>
-        <Route exact path={"/details"}>
+        <Route exact path={"/details/:id"}>
           <DetailsMusic />
         </Route>
       </Switch>

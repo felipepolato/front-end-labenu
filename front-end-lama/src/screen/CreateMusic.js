@@ -42,9 +42,6 @@ export default function CreateMusic() {
 
   return (
     <div>
-      <Genre />
-      <Album />
-
       <form onSubmit={createMusics}>
         <p>Musicas</p>
 
@@ -64,21 +61,9 @@ export default function CreateMusic() {
           type={"text"}
         />
 
-        <input
-          value={form.genresIds}
-          placeholder={"Genero"}
-          onChange={onChange}
-          name={"genresIds"}
-          type={"text"}
-        />
+        <Genre />
+        <Album />
 
-        <input
-          value={form.albumId}
-          placeholder={"Album"}
-          onChange={onChange}
-          name={"albumId"}
-          type={"text"}
-        />
         <button>Enviar</button>
       </form>
     </div>

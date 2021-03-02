@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
   const [musics, setMusics] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     getMusics();
@@ -17,9 +19,25 @@ export default function Home() {
       })
       .then((response) => {
         setMusics(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
+      });
+  };
+
+  const viewsDetails = (id) => {
+    axios
+      .get(`https://backend-fullstack-labenu.herokuapp.com/music/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        history.push(`/details/${id}`);
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
   };
 
@@ -28,11 +46,14 @@ export default function Home() {
       {musics &&
         musics.map((item) => {
           return (
-            (<p key={item.id}>{item.id}</p>),
-            (<p>{item.title}</p>),
-            (<p>{item.author}</p>),
-            (<p>{item.date}</p>),
-            (<p>{item.file}</p>)
+            <div>
+              <p> {item.title}</p>
+              <p> {item.author}</p>
+              <p> {item.date}</p>
+              <p> {item.file}</p>
+              <hr />
+              <button onClick={() => viewsDetails(item.id)}>Teste</button>
+            </div>
           );
         })}
     </div>
