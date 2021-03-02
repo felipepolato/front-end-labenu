@@ -4,6 +4,7 @@ import CreateMusic from "../screen/CreateMusic";
 import Home from "../screen/Home";
 import Login from "../screen/Login";
 import Signup from "../screen/Signup";
+import DetailsMusic from "../componets/DetailsMusic"
 
 export default function Routers() {
   return (
@@ -20,6 +21,9 @@ export default function Routers() {
         </Route>
         <Route exact path={"/musics"}>
           <CreateMusic />
+        </Route>
+        <Route exact path={"/details"}>
+          <DetailsMusic />
         </Route>
       </Switch>
     </BrowserRouter>

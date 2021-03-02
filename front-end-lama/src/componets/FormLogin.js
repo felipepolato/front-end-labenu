@@ -7,7 +7,7 @@ export default function FormLogin() {
       <input type="text" />
       <input type="text" />
       <input type="password" />
-      <button /*onClock=""*/>Entrar</button>
+      <button /*onClick=""*/>Entrar</button>
     </form>
   );
 }
