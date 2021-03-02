@@ -5,7 +5,15 @@ import React, { useEffect, useState } from "react";
 export default function Home() {
 return(
     <div>
-        Home
+          {/* {allMusics.map((item) => {
+        return (
+          (<p key={item.id}>{item.id}</p>),
+          (<p>{item.title}</p>),
+          (<p>{item.author}</p>),
+          (<p>{item.date}</p>),
+          (<p>{item.file}</p>)
+        );
+      })} */}
     </div>
 )
 

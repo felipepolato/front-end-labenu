@@ -6,7 +6,7 @@ import useForm from "../hoock/useForm";
 
 export default function Login() {
   const { form, onChange } = useForm({
-    nickname: "",
+    email: "",
     password: "",
   });
 
@@ -17,7 +17,7 @@ export default function Login() {
     event.preventDefault();
 
     const body = {
-      nickname: form.nickname,
+      email: form.email,
       password: form.password,
     };
 
@@ -28,7 +28,7 @@ export default function Login() {
         localStorage.setItem("token", res.data.token);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.massage);
       });
   };
 
@@ -36,10 +36,10 @@ export default function Login() {
     <form onSubmit={logging}>
       <p>Login</p>
       <input
-        placeholder="Nickname"
-        name="nickname"
+        placeholder="E-mail"
+        name="email"
         type="text"
-        value={form.nickname}
+        value={form.email}
         onChange={onChange}
       />
       <input

@@ -1,69 +1,86 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useForm from "../hoock/useForm";
 import axios from "axios";
+import Genre from "../componets/Genre";
+import Album from "../componets/Album";
 
-function CreateMusic() {
-  const [allMusics, setAllMusics] = useState([]);
-
+export default function CreateMusic() {
   const { form, onChange } = useForm({
-    name: "",
-    nickname: "",
+    title: "",
+    file: "",
+    genresIds: [],
+    albumId: "",
   });
 
-  useEffect(() => {
-    getAllMusics();
-  }, []);
-
-  const getAllMusics = () => {
-    axios
-      .get("https://backend-fullstack-labenu.herokuapp.com/music/createMusic")
-      .then((response) => {
-        setAllMusics(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleInputChange = (event) => {
-    const { value, name } = event.target;
-
-    onChange(value, name);
-  };
-
-  const onSubmitForm = (event) => {
+  const createMusics = (event) => {
     event.preventDefault();
-    console.log(form);
+
+    const body = {
+      title: form.title,
+      file: form.file,
+      genresIds: form.genresIds,
+      albumId: form.albumId,
+    };
+
+    axios
+      .post(
+        "https://backend-fullstack-labenu.herokuapp.com/music/createMusic",
+        body,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        alert("Musica Criada");
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
 
   return (
     <div>
-      {allMusics.map((item) => {
-        return (
-          (<p key={item.id}>{item.id}</p>),
-          (<p>{item.title}</p>),
-          (<p>{item.author}</p>),
-          (<p>{item.date}</p>),
-          (<p>{item.file}</p>)
-        );
-      })}
+      <Genre />
+      <Album />
 
-      <form onSubmit={onSubmitForm}>
+      <form onSubmit={createMusics}>
         <p>Musicas</p>
+
         <input
-          value={form.name}
-          placeholder={"Nome"}
-          onChange={handleInputChange}
-          name={"name"}
+          value={form.title}
+          placeholder={"Titulo"}
+          onChange={onChange}
+          name={"title"}
           type={"text"}
-          pattern={"[A-Za-z]{3,}"}
-          required
         />
 
+        <input
+          value={form.file}
+          placeholder={"Url Musica"}
+          onChange={onChange}
+          name={"file"}
+          type={"text"}
+        />
+
+        <input
+          value={form.genresIds}
+          placeholder={"Genero"}
+          onChange={onChange}
+          name={"genresIds"}
+          type={"text"}
+        />
+
+        <input
+          value={form.albumId}
+          placeholder={"Album"}
+          onChange={onChange}
+          name={"albumId"}
+          type={"text"}
+        />
         <button>Enviar</button>
       </form>
     </div>
   );
 }
-
-export default CreateMusic;
