@@ -36,6 +36,7 @@ export default function Home() {
       .then(() => {
         history.push(`/details/${id}`);
       })
+
       .catch((error) => {
         console.log(error.message);
       });
@@ -47,7 +48,7 @@ export default function Home() {
         musics.map((item) => {
           return (
             <div>
-              <p> {item.title}</p>
+              <p key={item.id}> {item.title}</p>
               <p> {item.author}</p>
               <p> {item.date}</p>
               <p> {item.file}</p>

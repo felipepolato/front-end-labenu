@@ -43,6 +43,7 @@ export default function CreateAlbum() {
         name={"name"}
         type={"text"}
       />
+
       {/* <button>Enviar</button> */}
     </form>
   );
