@@ -1,49 +1,71 @@
-import React, { useState } from "react";
-import useForm from "../hoock/useForm";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function CreateGenre() {
-  const { form, onChange } = useForm({
-    name: "",
-  });
+export default function Genre(props) {
+  const [idGenres, setIdGenres] = useState([]);
 
-  const CreateGenres = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    getGenres();
+  }, []);
 
-    const body = {
-      name: form.name,
-    };
+  // const CreateGenres = (event) => {
+  //   event.preventDefault();
 
+  //   const body = {
+  //     name: form.name,
+  //   };
+
+  //   axios
+  //     .post(
+  //       "https://backend-fullstack-labenu.herokuapp.com/music/createGenre",
+  //       body,
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("token"),
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       alert("Genero Criado");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response.data);
+  //     });
+  // };
+
+  console.log(props);
+
+  const getGenres = () => {
     axios
-      .post(
-        "https://backend-fullstack-labenu.herokuapp.com/music/createGenre",
-        body,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((res) => {
-        alert("Genero Criado");
+      .get("https://backend-fullstack-labenu.herokuapp.com/music/genres", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
       })
-      .catch((err) => {
-        console.log(err.response.data);
+      .then((response) => {
+        setIdGenres(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
   };
 
   return (
-    <form onSubmit={CreateGenres}>
+    <div>
       <p>Genero</p>
 
-      <input
-        value={form.name}
-        placeholder={"Genero"}
-        onChange={onChange}
-        name={"name"}
-        type={"text"}
-      />
-      {/* <button>Enviar</button> */}
-    </form>
+      <select value={props.form.value} onChange={props.onChange} name="genresId" required>
+        {idGenres &&
+          idGenres.map((item) => {
+            return (
+              <option value={item.id} name={item.id} key={item.id}>
+                {item.name}
+                {console.log(item)}
+              </option>
+            );
+          })}
+      </select>
+    </div>
   );
 }

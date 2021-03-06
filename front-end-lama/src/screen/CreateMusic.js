@@ -5,20 +5,16 @@ import Genre from "../componets/Genre";
 import Album from "../componets/Album";
 
 export default function CreateMusic() {
-  const [idAlbum, setIdAlbum] = useState([]);
-  const [idGenres, setIdGenres] = useState([]);
+
   const { form, onChange } = useForm({
+    name: "",
     title: "",
     file: "",
-    genresIds: "",
+    genresIds: [],
     albumId: "",
   });
 
-  useEffect(() => {
-    getGenres();
-    createMusics();
-    getAlbum();
-  }, []);
+ 
 
   const createMusics = (event) => {
     event.preventDefault();
@@ -52,60 +48,13 @@ export default function CreateMusic() {
   };
   // console.log(createMusics())
 
-  const getAlbum = () => {
-    axios
-      .get("https://backend-fullstack-labenu.herokuapp.com/music/albums", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        setIdAlbum(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
-
-  const getGenres = () => {
-    axios
-      .get("https://backend-fullstack-labenu.herokuapp.com/music/genres", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((response) => {
-        setIdGenres(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
-
+  
   //
 
   return (
     <div>
       <form onSubmit={createMusics}>
-        {idAlbum &&
-          idAlbum.map((item) => {
-            return (
-              <select value={form.albumId} onChange={onChange} required>
-                <option>{item.name}</option>
-              </select>
-            );
-          })}
-
-        {idGenres &&
-          idGenres.map((item) => {
-            return (
-              <select value={form.albumId} onChange={onChange} required>
-                <option>{item.name}</option>
-              </select>
-            );
-          })}
+        
 
         <p>Musicas</p>
 
@@ -125,8 +74,8 @@ export default function CreateMusic() {
           type={"text"}
         />
 
-        <Genre />
-        <Album />
+        <Genre form={form} onChange={onChange} />
+        <Album form={form} onChange={onChange}/>
 
         <button>Enviar</button>
       </form>
