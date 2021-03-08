@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import useForm from "../hoock/useForm";
 import axios from "axios";
 import Genre from "../componets/Genre";
 import Album from "../componets/Album";
 
 export default function CreateMusic() {
-
   const { form, onChange } = useForm({
     name: "",
     title: "",
@@ -13,8 +12,6 @@ export default function CreateMusic() {
     genresIds: [],
     albumId: "",
   });
-
- 
 
   const createMusics = (event) => {
     event.preventDefault();
@@ -25,8 +22,6 @@ export default function CreateMusic() {
       genresIds: form.genresIds,
       albumId: form.albumId,
     };
-
-    console.log(body);
 
     axios
       .post(
@@ -40,22 +35,15 @@ export default function CreateMusic() {
       )
       .then((res) => {
         alert("Musica Criada");
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err.response.data);
       });
   };
-  // console.log(createMusics())
-
-  
-  //
 
   return (
     <div>
       <form onSubmit={createMusics}>
-        
-
         <p>Musicas</p>
 
         <input
@@ -75,7 +63,7 @@ export default function CreateMusic() {
         />
 
         <Genre form={form} onChange={onChange} />
-        <Album form={form} onChange={onChange}/>
+        <Album form={form} onChange={onChange} />
 
         <button>Enviar</button>
       </form>

@@ -33,8 +33,6 @@ export default function Genre(props) {
   //     });
   // };
 
-  console.log(props);
-
   const getGenres = () => {
     axios
       .get("https://backend-fullstack-labenu.herokuapp.com/music/genres", {
@@ -44,7 +42,6 @@ export default function Genre(props) {
       })
       .then((response) => {
         setIdGenres(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error.response);
@@ -55,13 +52,17 @@ export default function Genre(props) {
     <div>
       <p>Genero</p>
 
-      <select value={props.form.value} onChange={props.onChange} name="genresId" required>
+      <select
+        value={props.form.value}
+        onChange={props.onChange}
+        name="genresId"
+        required
+      >
         {idGenres &&
           idGenres.map((item) => {
             return (
               <option value={item.id} name={item.id} key={item.id}>
                 {item.name}
-                {console.log(item)}
               </option>
             );
           })}

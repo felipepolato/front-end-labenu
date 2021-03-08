@@ -43,7 +43,6 @@ export default function CreateAlbum(props) {
       })
       .then((response) => {
         setAlbums(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error.response);
@@ -54,13 +53,17 @@ export default function CreateAlbum(props) {
     <div>
       <p>Album</p>
 
-      <select value={props.form.value} onChange={props.onChange} name="albumId"required>
+      <select
+        value={props.form.value}
+        onChange={props.onChange}
+        name="albumId"
+        required
+      >
         {albums &&
           albums.map((item) => {
             return (
               <option value={item.id} name={item.id} key={item.id}>
                 {item.name}
-                {console.log(item)}
               </option>
             );
           })}

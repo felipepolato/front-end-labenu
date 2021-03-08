@@ -20,7 +20,6 @@ export default function MusicDetails() {
       })
       .then((response) => {
         setDetailMusic(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error.message);

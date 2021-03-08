@@ -19,7 +19,6 @@ export default function Home() {
       })
       .then((response) => {
         setMusics(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error.message);
