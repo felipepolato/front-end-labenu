@@ -5,6 +5,7 @@ import Home from "../screen/Home";
 import Login from "../screen/Login";
 import Signup from "../screen/Signup";
 import DetailsMusic from "../componets/DetailsMusic"
+import CreatePlayList from "../screen/CreatePlayList";
 
 export default function Routers() {
   return (
@@ -24,6 +25,9 @@ export default function Routers() {
         </Route>
         <Route exact path={"/details/:id"}>
           <DetailsMusic />
+        </Route>
+        <Route exact path={"/playlist"}>
+          <CreatePlayList />
         </Route>
       </Switch>
     </BrowserRouter>
