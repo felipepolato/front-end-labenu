@@ -6,6 +6,7 @@ import Login from "../screen/Login";
 import Signup from "../screen/Signup";
 import DetailsMusic from "../componets/DetailsMusic"
 import CreatePlayList from "../screen/CreatePlayList";
+import ColectionPlayList from "../screen/ColectionPlayList"
 
 export default function Routers() {
   return (
@@ -28,6 +29,9 @@ export default function Routers() {
         </Route>
         <Route exact path={"/playlist"}>
           <CreatePlayList />
+        </Route>
+        <Route exact path={"/colection"}>
+          <ColectionPlayList />
         </Route>
       </Switch>
     </BrowserRouter>

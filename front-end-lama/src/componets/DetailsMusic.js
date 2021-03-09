@@ -9,7 +9,7 @@ export default function MusicDetails() {
 
   useEffect(() => {
     getMusicDetail();
-  }, []);
+  });
 
   const getMusicDetail = () => {
     axios

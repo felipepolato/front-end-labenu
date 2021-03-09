@@ -21,3 +21,7 @@ export const goToDetails = (history) => {
 export const goToCreatePlayList = (history) => {
   history.push("/playlist");
 };
+
+export const goToColectionPlayList = (history) => {
+  history.push("/colection");
+};

@@ -1,6 +1,6 @@
 import React from "react";
-import useForm from "../hoock/useForm";
 import axios from "axios";
+import useForm from "../hoock/useForm";
 import Genre from "../componets/Genre";
 import Album from "../componets/Album";
 
@@ -33,7 +33,7 @@ export default function CreateMusic() {
           },
         }
       )
-      .then((res) => {
+      .then(() => {
         alert("Musica Criada");
       })
       .catch((err) => {

@@ -3,12 +3,10 @@ import axios from "axios";
 import useForm from "../hoock/useForm";
 
 export default function CreatePlayList() {
-  //   const [newPlayList, setNewPlayList];
   const { form, onChange } = useForm({
     title: "",
-    file: "",
-    genresIds: [],
-    albumId: "",
+    subtitle: "",
+    image: "",
   });
 
   const creationPlaylist = (event) => {
@@ -16,67 +14,55 @@ export default function CreatePlayList() {
 
     const body = {
       title: form.title,
-      file: form.file,
-      genresIds: form.genresIds,
-      albumId: form.albumId,
+      subtitle: form.subtitle,
+      image: form.image,
     };
 
     axios
-      .post(
-        "",
-        body,
-        {
-          headers: {
-            Authorization: "token",
-          },
-        }
-      )
+      .put("https://lamusic.herokuapp.com/playlist/create", body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         alert("PLAYLIST CRIADA");
+        console.log(response.data);
       })
       .catch((error) => {
+        alert("PLAYLIST NÃO CRIADA");
         console.log(error.message);
       });
   };
 
   return (
-    <div>
-      <form onSubmit={creationPlaylist}>
-        <p>New PlayList</p>
+    <form onSubmit={creationPlaylist}>
+      <p>New PlayList</p>
 
-        <input
-          value={form.title}
-          placeholder={"Titulo"}
-          onChange={onChange}
-          name={"title"}
-          type={"text"}
-        />
+      <input
+        value={form.title}
+        placeholder={"Titulo"}
+        onChange={onChange}
+        name={"title"}
+        type={"text"}
+      />
 
-        <input
-          value={form.file}
-          placeholder={"Url Musica"}
-          onChange={onChange}
-          name={"file"}
-          type={"text"}
-        />
+      <input
+        value={form.subtitle}
+        placeholder={"Subtitlo"}
+        onChange={onChange}
+        name={"subtitle"}
+        type={"text"}
+      />
 
-<input
-          value={form.genresIds}
-          placeholder={"Genero"}
-          onChange={onChange}
-          name={"genresIds"}
-          type={"text"}
-        />
+      <input
+        value={form.image}
+        placeholder={"Imagem"}
+        onChange={onChange}
+        name={"image"}
+        type={"text"}
+      />
 
-<input
-          value={form.albumId}
-          placeholder={"Album"}
-          onChange={onChange}
-          name={"albumId"}
-          type={"text"}
-        />
-        <button >Criar Playlist</button>
-      </form>
-    </div>
+      <button>Criar Playlist</button>
+    </form>
   );
 }
