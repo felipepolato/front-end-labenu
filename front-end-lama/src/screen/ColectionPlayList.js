@@ -6,7 +6,7 @@ export default function ColectionPlayList() {
 
   useEffect(() => {
     getPlayList();
-  });
+  }, []);
 
   const getPlayList = () => {
     axios
