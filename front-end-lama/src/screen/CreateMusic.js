@@ -1,16 +1,16 @@
 import React from "react";
-import useForm from "../hoock/useForm";
 import axios from "axios";
-import Genre from "../componets/Genre";
-import Album from "../componets/Album";
+import useForm from "../hoock/useForm";
+// import Genre from "../componets/Genre";
+// import Album from "../componets/Album";
 
 export default function CreateMusic() {
   const { form, onChange } = useForm({
-    name: "",
     title: "",
+    author: "",
     file: "",
-    genresIds: [],
-    albumId: "",
+    album: "",
+    genres: undefined,
   });
 
   const createMusics = (event) => {
@@ -18,22 +18,19 @@ export default function CreateMusic() {
 
     const body = {
       title: form.title,
+      author: form.author,
       file: form.file,
-      genresIds: form.genresIds,
-      albumId: form.albumId,
+      album: form.album,
+      genres: form.genres,
     };
 
     axios
-      .post(
-        "https://backend-fullstack-labenu.herokuapp.com/music/createMusic",
-        body,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((res) => {
+      .post("https://lamusic.herokuapp.com/music/create", body, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
         alert("Musica Criada");
       })
       .catch((err) => {
@@ -55,6 +52,14 @@ export default function CreateMusic() {
         />
 
         <input
+          value={form.author}
+          placeholder={"Autor"}
+          onChange={onChange}
+          name={"author"}
+          type={"text"}
+        />
+
+        <input
           value={form.file}
           placeholder={"Url Musica"}
           onChange={onChange}
@@ -62,8 +67,21 @@ export default function CreateMusic() {
           type={"text"}
         />
 
-        <Genre form={form} onChange={onChange} />
-        <Album form={form} onChange={onChange} />
+        <input
+          value={form.album}
+          placeholder={"Album"}
+          onChange={onChange}
+          name={"album"}
+          type={"text"}
+        />
+
+        <input
+          value={form.genres}
+          placeholder={"Genero"}
+          onChange={onChange}
+          name={"genres"}
+          type={"text"}
+        />
 
         <button>Enviar</button>
       </form>

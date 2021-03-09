@@ -9,8 +9,8 @@ export default function SingUpForm() {
   const { form, onChange } = useForm({
     name: "",
     email: "",
-    password: "",
     nickname: "",
+    password: "",
   });
 
   const conection = (event) => {
@@ -19,14 +19,14 @@ export default function SingUpForm() {
     const body = {
       name: form.name,
       email: form.email,
-      password: form.password,
       nickname: form.nickname,
+      password: form.password,
     };
 
     axios
-      .post("https://backend-fullstack-labenu.herokuapp.com/user/signup", body)
+      .post("https://lamusic.herokuapp.com/user/signup", body)
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", res.data.token.accessToken);
         goToHome(history);
       })
       .catch((error) => {

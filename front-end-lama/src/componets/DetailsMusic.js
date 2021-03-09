@@ -13,13 +13,13 @@ export default function MusicDetails() {
 
   const getMusicDetail = () => {
     axios
-      .get(`https://backend-fullstack-labenu.herokuapp.com/music/${id}`, {
+      .get(`https://lamusic.herokuapp.com/music/${id}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       })
       .then((response) => {
-        setDetailMusic(response.data);
+        setDetailMusic(response.data.result);
       })
       .catch((error) => {
         console.log(error.message);
@@ -34,6 +34,9 @@ export default function MusicDetails() {
       <p>{detailsMusic.author}</p>
       <p>{detailsMusic.date}</p>
       <p>{detailsMusic.file}</p>
+      <p>{detailsMusic.album}</p>
+      <p>{detailsMusic.user_id}</p>
+      <p>{detailsMusic.resultGenres}</p>
     </div>
   );
 }

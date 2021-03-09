@@ -3,7 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 export default function Home() {
-  const [musics, setMusics] = useState([]);
+  const [musics, setMusics] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function Home() {
 
   const getMusics = () => {
     axios
-      .get("https://backend-fullstack-labenu.herokuapp.com/music/all", {
+      .get("https://lamusic.herokuapp.com/music", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -27,7 +27,7 @@ export default function Home() {
 
   const viewsDetails = (id) => {
     axios
-      .get(`https://backend-fullstack-labenu.herokuapp.com/music/${id}`, {
+    .get(`https://lamusic.herokuapp.com/music/${id}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -44,15 +44,15 @@ export default function Home() {
   return (
     <div>
       {musics &&
-        musics.map((item) => {
+        musics.result.map((item) => {
           return (
             <div>
               <p key={item.id}> {item.title}</p>
-              <p> {item.author}</p>
+              {/* <p> {item.author}</p>
               <p> {item.date}</p>
-              <p> {item.file}</p>
-              <hr />
+              <p> {item.file}</p> */}
               <button onClick={() => viewsDetails(item.id)}>Teste</button>
+              <hr />
             </div>
           );
         })}

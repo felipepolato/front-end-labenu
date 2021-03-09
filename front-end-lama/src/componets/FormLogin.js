@@ -7,7 +7,7 @@ import {goToHome} from "../Router/Coodinator"
 export default function FormLogin() {
   const history = useHistory();
   const { form, onChange } = useForm({
-    email: "",
+    input: "",
     password: "",
   });
 
@@ -15,27 +15,28 @@ export default function FormLogin() {
     event.preventDefault();
 
     const body = {
-      email: form.email,
+      input: form.input,
       password: form.password,
     };
 
     axios
-      .post("https://backend-fullstack-labenu.herokuapp.com/user/login", body)
+      .post("https://lamusic.herokuapp.com/user/login", body)
       .then((res) => {
         goToHome(history);
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", res.data.token.accessToken);;
       })
       .catch((err) => {
         console.log(err.massage);
       });
   };
+  
   return (
     <form onSubmit={logging}>
       <input
-        placeholder="E-mail"
-        name="email"
+        placeholder="E-mail/Nickname"
+        name="input"
         type="text"
-        value={form.email}
+        value={form.input}
         onChange={onChange}
       />
       <input
